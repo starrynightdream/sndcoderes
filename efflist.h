@@ -8,6 +8,15 @@ using namespace std;
 
 namespace sndcoderes
 {
+    template<class T>
+    T abs(T a, T b)
+    {
+        if (a^b >= 0)
+            return a > b? a-b: b-a;
+        else
+            return a > b? a-b: b-a;
+    }
+
     /**
      * 内部是一个升序数组
     * 维护最小距离
@@ -47,7 +56,7 @@ namespace sndcoderes
         /**
         * 从数值中移除一个数值
         */
-        void rmnum(T num){}
+        bool rmnum(T num){}
 
         /**
         * 替换掉数组中的旧值并添加一个新值
