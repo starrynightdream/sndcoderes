@@ -1,0 +1,11 @@
+/*
+隐藏给定图
+*/
+
+.hidenScroll ::-webkit-scrollbar{
+    display: none;
+}
+
+.hidenScroll{
+    overflow: -moz-hidden-unscrollable;
+}
