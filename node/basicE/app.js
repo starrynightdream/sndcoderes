@@ -17,6 +17,19 @@ app.use(session({
 
 app.use('/', express.static( path.join( __dirname, "/public/")));
 
+// 跨域请求允许
+app.all('*', (req, res, next)=>{
+    res.header("Access-Control-Allow-Origin","*");
+    //允许的header类型
+    res.header("Access-Control-Allow-Headers","content-type");
+    //跨域允许的请求方式 
+    res.header("Access-Control-Allow-Methods","DELETE,PUT,POST,GET,OPTIONS");
+    if (req.method.toLowerCase() === 'options')
+        res.send(200);  //让options尝试请求快速结束
+    else
+        next();
+});
+
 app.post('/postUrl', async (req, res) =>{
     // get data
     req.body
@@ -43,7 +56,7 @@ app.get('/run_script/', (req, res)=>{
             stdout: 'no such file'
         });
     
-    // there is python script, changeable
+    // 在这里运行的是python脚本，命令根据具体需求变更
     const commend = `python ${ path.join(__dirname, file)}`;
     let pyThread = cp.exec(commend, (err, stdout, stderr) =>{
         if (err){
