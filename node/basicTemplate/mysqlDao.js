@@ -1,13 +1,14 @@
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'localhost', // 默认数据库在本机
     user: 'root',
     password: 'password',
-    database: 'easymall',
+    database: 'yourdb',
     timezone: 'Hongkong',
     charset: 'utf8',
 });
 
+// 连接数据库
 connection.connect();
 
 // 基础写法
