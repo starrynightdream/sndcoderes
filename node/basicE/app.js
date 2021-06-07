@@ -3,6 +3,7 @@ const cp = require('child_process');
 
 const express = require('express');
 const session = require('express-session');
+const ejs = require('ejs')
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+
+app.set('views', path.join(__dirname, '/view')); 
+app.engine('html', ejs.renderFile);
+app.set('view engine', 'html');
 
 app.use('/', express.static( path.join( __dirname, "/public/")));
 
@@ -83,7 +88,8 @@ app.get('/run_script/', (req, res)=>{
 });
 
 app.get('/', (req, res) =>{
-    res.sendFile( path.join(__dirname, "view/index.html")); // 相对路径
+    res.render('index');
+    // res.sendFile( path.join(__dirname, "view/index.html")); // 相对路径
 });
 
 app.listen(port, ()=>{

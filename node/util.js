@@ -1,4 +1,6 @@
 const os = require('os');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * 获取所有ip地址
@@ -51,6 +53,38 @@ const mysqlDateFormate = function (date, pattern) {
     return pattern;
 }
 
+const readJSONFile = async (filePath, warn = false) =>{
+
+    return new Promise((resolve, reject)=>{
+        fs.readFile(filePath, 'utf-8', (err, data)=>{
+
+            if (err) {
+                if (warn)
+                    console.error(err);
+                reject(err);
+                return null;
+            }else{
+                let ans = JSON.parse(data);
+                resolve(ans)
+                return ans;
+            }
+        });
+    });
+}
+
+
+const main = async()=>{
+    // let ans = 
+    //     await readJSONFile( path.join(__dirname, './output.txt'), true);
+    // console.log(
+    //     Object.keys(
+    //         ans[0].wordCapture
+    //     )
+    //     );
+}
+
+main()
+
 module.exports = {
-    getAllIpAddress, mysqlDateFormate
+    getAllIpAddress, mysqlDateFormate, readJSONFile
 }
