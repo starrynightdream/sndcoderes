@@ -37,12 +37,20 @@ app.all('*', (req, res, next)=>{
 });
 
 app.post('/postUrl', async (req, res) =>{
-    // get data
+    // post data
     req.body
     res.json({
         //res data
 
     });
+});
+
+app.get('/data/:code', async (req, res) =>{
+    // get data
+    req.query
+    // url data
+    req.params
+    res.status(200).end('code');
 });
 
 app.get('/run_script/', (req, res)=>{
