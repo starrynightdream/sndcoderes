@@ -112,8 +112,8 @@ const findAllFileLike = async (dir='./', typelist=[], warn = false) =>{
 
 
 const main = async()=>{
-    let ans = await findAllFileLike('./', ['md', 'js'], true);
-    console.log(ans);
+    // let ans = await findAllFileLike('./', ['md', 'js'], true);
+    // console.log(ans);
 }
 
 main()
