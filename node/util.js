@@ -72,19 +72,52 @@ const readJSONFile = async (filePath, warn = false) =>{
     });
 }
 
+const findAllFileLike = async (dir='./', typelist=[], warn = false) =>{
+    let checkBOX = {};
+    for (let fn of typelist){
+        checkBOX[fn] = true;
+    }
+    let ans = [];
+    return new Promise(async (resolve, reject) =>{
+        fs.readdir(dir,async (err, files) =>{
+            if (err){
+                if (warn){
+                    console.warn(err);
+                }
+                reject(ans);
+                return ans;
+            }
+
+            for (let name of files) {
+                let checkFilePath = path.join(dir, name);
+                let status = fs.statSync(checkFilePath);
+                let isF = status.isFile();
+                let isD = status.isDirectory();
+
+                if (isF){
+                    let extendN = name.split('.')[1];
+                    if (checkBOX[extendN]){
+                        ans.push(checkFilePath);
+                    }
+                }
+                if (isD){
+                    let inside = await findAllFileLike(checkFilePath, typelist, warn);
+                    ans.push(...inside);
+                }
+            } // end of forEach
+            resolve(ans);
+        }); // end of readdir
+    }); // end of Promise
+}
+
 
 const main = async()=>{
-    // let ans = 
-    //     await readJSONFile( path.join(__dirname, './output.txt'), true);
-    // console.log(
-    //     Object.keys(
-    //         ans[0].wordCapture
-    //     )
-    //     );
+    let ans = await findAllFileLike('./', ['md', 'js'], true);
+    console.log(ans);
 }
 
 main()
 
 module.exports = {
-    getAllIpAddress, mysqlDateFormate, readJSONFile
+    getAllIpAddress, mysqlDateFormate, readJSONFile, findAllFileLike
 }
