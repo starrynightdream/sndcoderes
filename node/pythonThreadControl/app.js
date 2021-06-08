@@ -7,6 +7,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const threadObj = {};
+
 app.get('/run_script/:script', (req, res)=>{
     // run script
     // let key = req.body.key;
@@ -27,15 +29,33 @@ app.get('/run_script/:script', (req, res)=>{
 
     pyThread.stdout.on('data', (data) =>{
         console.log(`stdout> ${data}`);
-        res.end('a')
     });
 
     pyThread.on('exit', (code) =>{
         // 可做退出处理
         console.log(`exit code ${code}`);
     });
+
+    threadObj[key] = pyThread;
+    res.end('run now');
 });
 
+
+app.get('/kill/:script', (req, res)=>{
+    // run script
+    // let key = req.body.key;
+    let key = req.params.script;
+    if (!key.endsWith('.py')){
+        key += '.py';
+    }
+
+    if (threadObj[key]){
+        threadObj[key].kill();
+        res.json('ok');
+    } else {
+        res.json('false');
+    }
+});
 
 app.listen(port, (err) =>{
     if (err){
