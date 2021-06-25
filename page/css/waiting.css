@@ -1,0 +1,29 @@
+.cover{
+    border: none;
+    padding: none;
+    margin: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+
+    display: flex;
+    display: -webkit-flex;
+
+    flex-flow: column-reverse wrap;
+    justify-content: start;
+    align-items: flex-end;
+}  
+
+.tip{
+
+    display: flex;
+    display: -webkit-flex;
+
+    flex-flow: column-reverse wrap;
+    justify-content: start;
+    align-items: flex-end;
+}
+
+.word {
+    color: white;
+}

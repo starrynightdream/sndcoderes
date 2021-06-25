@@ -73,12 +73,22 @@ const readJSONFile = async (filePath, warn = false) =>{
 }
 
 const findAllFileLike = async (dir='./', typelist=[], warn = false) =>{
+    
+    if (typelist.length === 0) {
+
+        return new Promise((resolve, reject) =>{
+            resolve([]);
+            reject("没有指定元素");
+            return [];
+        });
+    }
     let checkBOX = {};
     for (let fn of typelist){
         checkBOX[fn] = true;
     }
     let ans = [];
     return new Promise(async (resolve, reject) =>{
+
         fs.readdir(dir,async (err, files) =>{
             if (err){
                 if (warn){
