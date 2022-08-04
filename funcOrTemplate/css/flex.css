@@ -1,0 +1,11 @@
+.test {
+    display: flex;
+    display: -webkit-flex; /* 谷歌兼容 */
+
+    flex-direction: column; /* 主轴方向 */
+    flex-wrap: wrap; /* 是否换行 */
+    flex-flow: column wrap; /* 上面两个属性的简写 */
+    justify-content: center; /* 项目在主轴上的对齐方向 */
+    align-items: center; /* 项目在副轴上的对齐发送 */
+    align-content: center; /* 项目在多轴上的对齐发送 */
+}

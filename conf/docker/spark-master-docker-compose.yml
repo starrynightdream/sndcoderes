@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  spark:
+    image: bitnami/spark
+    hostname: master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - /root/docker_data_file/spark/data:/opt/share
+      - /root/docker_data_file/spark/transport:/opt/temp
+    ports:
+      - '22514:8080'
+    container_name: spark_master
